@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "dblp-bib"
+name = "paper2bib"
 version = "0.1.0"
 description = "Search DBLP and export renamed BibTeX from the browser, CLI, or FastAPI."
 readme = "README.md"
@@ -19,6 +19,7 @@ dependencies = [
 dev = ["build>=1.2", "twine>=5.1"]
 
 [project.scripts]
+paper2bib = "dblp_bib.cli:main"
 dblp-bib = "dblp_bib.cli:main"
 
 [tool.setuptools]

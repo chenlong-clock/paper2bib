@@ -2,7 +2,7 @@ from setuptools import setup
 
 
 setup(
-    name="dblp-bib",
+    name="paper2bib",
     version="0.1.0",
     description="Search DBLP and export renamed BibTeX from the browser, CLI, or FastAPI.",
     packages=["dblp_bib"],
@@ -13,6 +13,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
+            "paper2bib=dblp_bib.cli:main",
             "dblp-bib=dblp_bib.cli:main",
         ]
     },

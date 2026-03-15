@@ -1,8 +1,11 @@
-# 🫧 DBLP BibTeX Renamer
+<h1 align="center">🫧 DBLP BibTeX Renamer</h1>
 
-[![Version](https://img.shields.io/badge/version-0.1.0-blue?style=flat-square)](./pyproject.toml)
-[![Python](https://img.shields.io/badge/python-%3E%3D3.9-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org)
-[![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](./LICENSE)
+<p align="center">
+  <a href="./pyproject.toml"><img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue?style=flat-square" /></a>
+  <a href="https://www.python.org"><img alt="Python" src="https://img.shields.io/badge/python-%3E%3D3.9-3776AB?style=flat-square&logo=python&logoColor=white" /></a>
+  <a href="./LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-green?style=flat-square" /></a>
+  <a href="./docs/index.html"><img alt="Web" src="https://img.shields.io/badge/web-self--hosted-orange?style=flat-square&logo=googlechrome&logoColor=white" /></a>
+</p>
 
 把论文标题直接变成干净、可用、可批量处理的 BibTeX。
 
@@ -11,6 +14,7 @@
 - 🪪 License：[MIT](./LICENSE)
 - 🏷️ 版本：`0.1.0`
 - 🌐 Webpages：[中文页面](./docs/index.html) | [English page](./docs/en.html)
+- 🛠️ 部署方式：前端静态页和 FastAPI 后端均需自行部署
 
 🌏 语言：
 - [English README](./README.md)
@@ -30,7 +34,7 @@
 ## 目录结构
 
 ```text
-docs/         前端页面，可部署到 GitHub Pages
+docs/         前端静态页面（自行部署）
 dblp_bib/     Python 包、CLI、FastAPI
 pyproject.toml
 setup.py
@@ -39,7 +43,7 @@ setup.py
 ## 安装
 
 ```bash
-pip install .
+pip install paper2bib
 ```
 
 开发模式：
@@ -71,13 +75,13 @@ http://localhost:8000/docs/
 ## CLI 模式
 
 ```bash
-dblp-bib "Attention Is All You Need"
+paper2bib "Attention Is All You Need"
 ```
 
 批量模式：
 
 ```bash
-dblp-bib --file titles.txt --preference venueFirst --output refs.bib
+paper2bib --file titles.txt --preference venueFirst --output refs.bib
 ```
 
 ## Python 库模式

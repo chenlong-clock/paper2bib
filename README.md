@@ -1,8 +1,11 @@
-# 🫧 DBLP BibTeX Renamer
+<h1 align="center">🫧 DBLP BibTeX Renamer</h1>
 
-[![Version](https://img.shields.io/badge/version-0.1.0-blue?style=flat-square)](./pyproject.toml)
-[![Python](https://img.shields.io/badge/python-%3E%3D3.9-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org)
-[![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](./LICENSE)
+<p align="center">
+  <a href="./pyproject.toml"><img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue?style=flat-square" /></a>
+  <a href="https://www.python.org"><img alt="Python" src="https://img.shields.io/badge/python-%3E%3D3.9-3776AB?style=flat-square&logo=python&logoColor=white" /></a>
+  <a href="./LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-green?style=flat-square" /></a>
+  <a href="./docs/index.html"><img alt="Web" src="https://img.shields.io/badge/web-self--hosted-orange?style=flat-square&logo=googlechrome&logoColor=white" /></a>
+</p>
 
 Turn paper titles into clean, reusable BibTeX entries.
 
@@ -11,6 +14,7 @@ Turn paper titles into clean, reusable BibTeX entries.
 - 🪪 License: [MIT](./LICENSE)
 - 🏷️ Version: `0.1.0`
 - 🌐 Webpages: [中文页面](./docs/index.html) | [English page](./docs/en.html)
+- 🛠️ Deployment: self-hosted frontend + self-hosted FastAPI backend
 
 🌏 Language:
 - English (this file)
@@ -33,7 +37,7 @@ Use it when you want to search DBLP by paper title and quickly get renamed BibTe
 ## Project Layout
 
 ```text
-docs/         Web frontend (GitHub Pages friendly)
+docs/         Web frontend (self-hosted static files)
 dblp_bib/     Python package, CLI, FastAPI
 pyproject.toml
 setup.py
@@ -42,7 +46,7 @@ setup.py
 ## Install
 
 ```bash
-pip install .
+pip install paper2bib
 ```
 
 For development:
@@ -74,13 +78,13 @@ http://localhost:8000/docs/
 ## CLI Mode
 
 ```bash
-dblp-bib "Attention Is All You Need"
+paper2bib "Attention Is All You Need"
 ```
 
 Batch mode:
 
 ```bash
-dblp-bib --file titles.txt --preference venueFirst --output refs.bib
+paper2bib --file titles.txt --preference venueFirst --output refs.bib
 ```
 
 ## Python Mode
