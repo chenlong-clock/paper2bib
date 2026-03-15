@@ -1,0 +1,2 @@
+[console_scripts]
+dblp-bib = dblp_bib.cli:main

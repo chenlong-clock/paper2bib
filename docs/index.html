@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paper2BibTeX</title>
+    <meta
+      name="description"
+      content="输入论文标题，快速生成可复制、可下载、可批量处理的 BibTeX。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:wght@500;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-actions">
+          <a class="lang-link" href="./en.html">EN</a>
+          <button id="open-settings" type="button" class="secondary">设置</button>
+        </div>
+        <p class="eyebrow">BibTeX 工具</p>
+        <h1>论文标题转 BibTeX</h1>
+        <p class="hero-copy">
+          输入论文标题，系统会自动检索候选结果并生成可直接使用的 BibTeX。
+          支持单篇快速处理，也支持多篇批量导出。
+        </p>
+      </header>
+
+      <main class="layout">
+        <section class="panel search-panel">
+          <div class="section-heading">
+            <h2>输入标题</h2>
+            <span>单篇或批量均可</span>
+          </div>
+
+          <form id="search-form" class="search-form">
+            <label class="input-label" for="paper-title">论文标题</label>
+            <textarea
+              id="paper-title"
+              name="paper-title"
+              rows="5"
+              placeholder="单篇直接输入标题；批量模式下每行一个标题"
+              spellcheck="false"
+              required
+            ></textarea>
+            <p class="input-hint">
+              单篇输入会展示候选论文供你选择；多行输入时会按“每行一篇”批量生成。
+            </p>
+            <div class="search-row">
+              <button id="search-button" type="submit">搜索</button>
+            </div>
+          </form>
+
+          <div id="status" class="status" aria-live="polite"></div>
+          <div id="results" class="results" aria-live="polite"></div>
+        </section>
+
+        <section class="panel output-panel">
+          <div class="section-heading">
+            <h2>生成结果</h2>
+          </div>
+
+          <div class="output-meta">
+            <div>
+              <p class="meta-label">当前选中</p>
+              <p id="selected-paper" class="meta-value">暂未生成</p>
+            </div>
+            <div>
+              <p class="meta-label">当前引用 Key</p>
+              <p id="selected-key" class="meta-value mono">-</p>
+            </div>
+          </div>
+
+          <textarea
+            id="bibtex-output"
+            class="bibtex-output"
+            placeholder="生成后的 BibTeX 会显示在这里"
+            spellcheck="false"
+          ></textarea>
+
+          <div class="actions">
+            <button id="copy-button" type="button" class="secondary">复制</button>
+            <button id="download-button" type="button" class="secondary">
+              下载 .bib
+            </button>
+          </div>
+
+          <div class="help-text">
+            <p>默认命名规则：作者姓氏 + 年份 + 标题关键词。</p>
+            <p>若出现重复 Key，系统会自动追加序号避免冲突。</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="settings-overlay" class="settings-overlay" hidden></div>
+    <aside id="settings-drawer" class="settings-drawer" aria-hidden="true">
+      <div class="settings-head">
+        <h2>设置</h2>
+        <button id="close-settings" type="button" class="secondary">关闭</button>
+      </div>
+
+      <div class="options-grid">
+        <label class="input-group">
+          <span>结果数量</span>
+          <select id="result-limit">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+          </select>
+        </label>
+
+        <label class="input-group">
+          <span>引用 Key 命名</span>
+          <select id="rename-style">
+            <option value="authorYearTitle" selected>姓氏 + 年份 + 标题词</option>
+            <option value="dblpKey">保留 DBLP Key</option>
+            <option value="custom">自定义</option>
+          </select>
+        </label>
+
+        <label class="input-group">
+          <span>单篇候选排序</span>
+          <select id="result-sort">
+            <option value="dblp" selected>DBLP 默认</option>
+            <option value="venueFirst">优先正式发表</option>
+            <option value="arxivFirst">优先 arXiv</option>
+            <option value="yearDesc">年份最新</option>
+          </select>
+        </label>
+
+        <label class="input-group">
+          <span>批量优先规则</span>
+          <select id="publication-preference">
+            <option value="venueFirst" selected>优先正式发表</option>
+            <option value="dblp">跟随 DBLP 默认</option>
+            <option value="arxivFirst">优先 arXiv</option>
+            <option value="yearDesc">优先最新年份</option>
+          </select>
+        </label>
+
+        <label class="input-group wide" id="custom-pattern-group" hidden>
+          <span>自定义模板</span>
+          <input
+            id="custom-pattern"
+            type="text"
+            value="{author}{year}{title}"
+            spellcheck="false"
+          />
+          <small>可用变量：{author} {year} {title} {venue}</small>
+        </label>
+      </div>
+    </aside>
+
+    <template id="result-card-template">
+      <article class="result-card">
+        <button type="button" class="result-select">生成 BibTeX</button>
+        <div class="result-content">
+          <h3 class="result-title"></h3>
+          <p class="result-authors"></p>
+          <p class="result-meta"></p>
+          <p class="result-key mono"></p>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="./assets/app.js?v=20260315-6"></script>
+  </body>
+</html>

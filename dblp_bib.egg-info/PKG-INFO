@@ -1,0 +1,224 @@
+Metadata-Version: 2.4
+Name: dblp-bib
+Version: 0.1.0
+Summary: Search DBLP and export renamed BibTeX from the browser, CLI, or FastAPI.
+Author: Charlie
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi<1.0,>=0.115
+Requires-Dist: uvicorn<1.0,>=0.30
+Provides-Extra: dev
+Requires-Dist: build>=1.2; extra == "dev"
+Requires-Dist: twine>=5.1; extra == "dev"
+Dynamic: requires-python
+
+# DBLP BibTeX Renamer
+
+一个同时支持前端网页、Python 库、CLI 和 FastAPI 的 DBLP BibTeX 工具。
+
+它可以：
+
+- 输入论文标题，从 DBLP 搜索候选结果
+- 抓取对应 BibTeX
+- 按规则重命名 entry key
+- 支持单篇查询和多行批量查询
+- 支持优先正式发表、优先 arXiv、优先最新年份等选择偏好
+
+## 项目结构
+
+```text
+docs/         GitHub Pages 前端
+dblp_bib/     Python 包、CLI、FastAPI
+pyproject.toml
+```
+
+## 前端使用
+
+直接打开：
+
+```text
+docs/index.html
+```
+
+或者在仓库根目录启动一个静态服务器：
+
+```bash
+python3 -m http.server 8000
+```
+
+然后访问：
+
+```text
+http://localhost:8000/docs/
+```
+
+## Python 安装
+
+本地开发安装：
+
+```bash
+pip install -e .
+```
+
+发布到 PyPI 之后，别人可以直接：
+
+```bash
+pip install dblp-bib
+```
+
+## 作为 Python 库使用
+
+```python
+from dblp_bib import search_bibtex, batch_search_bibtex
+
+single = search_bibtex(
+    "Attention Is All You Need",
+    preference="venueFirst",
+)
+
+batch = batch_search_bibtex(
+    [
+        "Attention Is All You Need",
+        "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+    ],
+    preference="venueFirst",
+)
+
+print(single.bibtex)
+print(batch.combined_bibtex)
+```
+
+## CLI 使用
+
+安装后可以直接运行：
+
+```bash
+dblp-bib "Attention Is All You Need"
+```
+
+批量查询：
+
+```bash
+dblp-bib --file titles.txt --preference venueFirst --output refs.bib
+```
+
+输出 JSON：
+
+```bash
+dblp-bib "Attention Is All You Need" --json
+```
+
+支持的 `--preference`：
+
+- `dblp`
+- `venueFirst`
+- `arxivFirst`
+- `yearDesc`
+
+支持的 `--rename-style`：
+
+- `authorYearTitle`
+- `dblpKey`
+- `custom`
+
+自定义模板示例：
+
+```bash
+dblp-bib "Attention Is All You Need" \
+  --rename-style custom \
+  --custom-pattern "{author}{year}{venue}{title}"
+```
+
+## HTTP API 使用
+
+启动 API：
+
+```bash
+uvicorn dblp_bib.api:app --reload
+```
+
+健康检查：
+
+```bash
+curl http://127.0.0.1:8000/health
+```
+
+单篇：
+
+```bash
+curl -X POST http://127.0.0.1:8000/bibtex \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Attention Is All You Need",
+    "preference": "venueFirst"
+  }'
+```
+
+批量：
+
+```bash
+curl -X POST http://127.0.0.1:8000/bibtex/batch \
+  -H "Content-Type: application/json" \
+  -d '{
+    "titles": [
+      "Attention Is All You Need",
+      "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding"
+    ],
+    "preference": "venueFirst"
+  }'
+```
+
+打开交互文档：
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+## GitHub Pages
+
+前端静态资源目录是：
+
+```text
+docs/
+```
+
+如果仓库里已经有 Pages workflow，推送后即可部署静态页面。
+
+## 发布到 PyPI
+
+1. 修改 `pyproject.toml` 里的版本号。
+2. 安装构建工具：
+
+```bash
+python -m pip install --upgrade build twine
+```
+
+3. 构建：
+
+```bash
+python -m build
+```
+
+4. 先发到 TestPyPI 验证：
+
+```bash
+python -m twine upload --repository testpypi dist/*
+```
+
+5. 验证没问题后再发正式 PyPI：
+
+```bash
+python -m twine upload dist/*
+```
+
+发布后别人就可以：
+
+```bash
+pip install dblp-bib
+```
+
+## 当前实现说明
+
+- 前端仍然是纯静态页面，适合 GitHub Pages
+- Python 包提供同样的检索、排序偏好和 key 重命名逻辑
+- CLI 和 FastAPI 都复用同一套 Python 核心代码

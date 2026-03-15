@@ -1,0 +1,16 @@
+README.md
+pyproject.toml
+setup.py
+dblp_bib/__init__.py
+dblp_bib/__main__.py
+dblp_bib/api.py
+dblp_bib/cli.py
+dblp_bib/client.py
+dblp_bib/models.py
+dblp_bib/naming.py
+dblp_bib.egg-info/PKG-INFO
+dblp_bib.egg-info/SOURCES.txt
+dblp_bib.egg-info/dependency_links.txt
+dblp_bib.egg-info/entry_points.txt
+dblp_bib.egg-info/requires.txt
+dblp_bib.egg-info/top_level.txt

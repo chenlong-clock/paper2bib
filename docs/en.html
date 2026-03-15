@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paper Title to BibTeX</title>
+    <meta
+      name="description"
+      content="Enter paper titles and quickly generate BibTeX entries you can copy, download, or process in batch."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:wght@500;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-actions">
+          <a class="lang-link" href="./index.html">中文</a>
+          <button id="open-settings" type="button" class="secondary">Settings</button>
+        </div>
+        <p class="eyebrow">BibTeX Tool</p>
+        <h1>Paper Title to BibTeX</h1>
+        <p class="hero-copy">
+          Enter a paper title, get ranked candidates, and generate reusable BibTeX instantly.
+          Supports both one-by-one lookup and multi-line batch processing.
+        </p>
+      </header>
+
+      <main class="layout">
+        <section class="panel search-panel">
+          <div class="section-heading">
+            <h2>Input Titles</h2>
+            <span>Single or batch mode</span>
+          </div>
+
+          <form id="search-form" class="search-form">
+            <label class="input-label" for="paper-title">Paper Title</label>
+            <textarea
+              id="paper-title"
+              name="paper-title"
+              rows="5"
+              placeholder="Single mode: one title; Batch mode: one title per line"
+              spellcheck="false"
+              required
+            ></textarea>
+            <p class="input-hint">
+              One line gives candidate selection; multiple lines trigger batch generation.
+            </p>
+            <div class="search-row">
+              <button id="search-button" type="submit">Search</button>
+            </div>
+          </form>
+
+          <div id="status" class="status" aria-live="polite"></div>
+          <div id="results" class="results" aria-live="polite"></div>
+        </section>
+
+        <section class="panel output-panel">
+          <div class="section-heading">
+            <h2>Output</h2>
+          </div>
+
+          <div class="output-meta">
+            <div>
+              <p class="meta-label">Selected</p>
+              <p id="selected-paper" class="meta-value">Not generated yet</p>
+            </div>
+            <div>
+              <p class="meta-label">Citation Key</p>
+              <p id="selected-key" class="meta-value mono">-</p>
+            </div>
+          </div>
+
+          <textarea
+            id="bibtex-output"
+            class="bibtex-output"
+            placeholder="Generated BibTeX will appear here"
+            spellcheck="false"
+          ></textarea>
+
+          <div class="actions">
+            <button id="copy-button" type="button" class="secondary">Copy</button>
+            <button id="download-button" type="button" class="secondary">
+              Download .bib
+            </button>
+          </div>
+
+          <div class="help-text">
+            <p>Default key style: author last name + year + title keywords.</p>
+            <p>Duplicate keys are automatically de-duplicated with numeric suffixes.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="settings-overlay" class="settings-overlay" hidden></div>
+    <aside id="settings-drawer" class="settings-drawer" aria-hidden="true">
+      <div class="settings-head">
+        <h2>Settings</h2>
+        <button id="close-settings" type="button" class="secondary">Close</button>
+      </div>
+
+      <div class="options-grid">
+        <label class="input-group">
+          <span>Result Limit</span>
+          <select id="result-limit">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+          </select>
+        </label>
+
+        <label class="input-group">
+          <span>Citation Key Style</span>
+          <select id="rename-style">
+            <option value="authorYearTitle" selected>Author + Year + Title</option>
+            <option value="dblpKey">Keep DBLP Key</option>
+            <option value="custom">Custom</option>
+          </select>
+        </label>
+
+        <label class="input-group">
+          <span>Single Search Ranking</span>
+          <select id="result-sort">
+            <option value="dblp" selected>DBLP default</option>
+            <option value="venueFirst">Prefer venue publications</option>
+            <option value="arxivFirst">Prefer arXiv</option>
+            <option value="yearDesc">Newest year first</option>
+          </select>
+        </label>
+
+        <label class="input-group">
+          <span>Batch Preference</span>
+          <select id="publication-preference">
+            <option value="venueFirst" selected>Prefer venue publications</option>
+            <option value="dblp">Follow DBLP order</option>
+            <option value="arxivFirst">Prefer arXiv</option>
+            <option value="yearDesc">Newest year first</option>
+          </select>
+        </label>
+
+        <label class="input-group wide" id="custom-pattern-group" hidden>
+          <span>Custom Pattern</span>
+          <input
+            id="custom-pattern"
+            type="text"
+            value="{author}{year}{title}"
+            spellcheck="false"
+          />
+          <small>Variables: {author} {year} {title} {venue}</small>
+        </label>
+      </div>
+    </aside>
+
+    <template id="result-card-template">
+      <article class="result-card">
+        <button type="button" class="result-select">Generate BibTeX</button>
+        <div class="result-content">
+          <h3 class="result-title"></h3>
+          <p class="result-authors"></p>
+          <p class="result-meta"></p>
+          <p class="result-key mono"></p>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="./assets/app-en.js?v=20260315-1"></script>
+  </body>
+</html>

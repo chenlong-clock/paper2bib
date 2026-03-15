@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dblp-bib"
+version = "0.1.0"
+description = "Search DBLP and export renamed BibTeX from the browser, CLI, or FastAPI."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Charlie" }]
+dependencies = [
+  "fastapi>=0.115,<1.0",
+  "uvicorn>=0.30,<1.0",
+]
+
+[project.optional-dependencies]
+dev = ["build>=1.2", "twine>=5.1"]
+
+[project.scripts]
+dblp-bib = "dblp_bib.cli:main"
+
+[tool.setuptools]
+packages = ["dblp_bib"]
