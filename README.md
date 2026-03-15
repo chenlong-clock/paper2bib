@@ -13,13 +13,13 @@ Paper2Bib (`paper2bib`) is a Python package and CLI that searches DBLP from pape
 
 Language: English (this file) | [简体中文 README](./README.zh-CN.md)
 
-## What You Can Do
+## Why Paper2Bib
 
-- Search DBLP directly from paper titles
-- Generate BibTeX ready to copy or export
-- Run batch conversion for large reading lists
-- Keep consistent key naming across your references
-- Use the same core engine from Web, CLI, Python, and HTTP API
+- [x] Search DBLP directly from paper titles
+- [x] Generate BibTeX ready to copy or export
+- [x] Run batch conversion for large reading lists
+- [x] Keep consistent key naming across your references
+- [x] Use the same core engine from Web, CLI, Python, and HTTP API
 
 ## Installation
 
@@ -105,5 +105,5 @@ setup.py
 
 ## Acknowledgement
 
-- [DBLP](https://dblp.org) for the paper metadata and bibliographic ecosystem.
-- Contributors building open-source research tooling and citation workflows.
+- If this project is useful to you, please give it a Star.
+- New feature ideas and pull requests are welcome.

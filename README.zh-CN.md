@@ -13,13 +13,13 @@ Paper2Bib（`paper2bib`）是一个 Python 包和命令行工具，可通过论�
 
 语言：[English README](./README.md) | 中文（本文件）
 
-## 你可以做什么
+## Why（已实现功能）
 
-- 直接用论文标题搜索 DBLP
-- 生成可复制、可导出的 BibTeX
-- 批量转换长文献清单
-- 保持参考文献条目命名一致
-- 在 Web、CLI、Python、HTTP API 中复用同一套核心逻辑
+- [x] 直接用论文标题搜索 DBLP
+- [x] 生成可复制、可导出的 BibTeX
+- [x] 批量转换长文献清单
+- [x] 保持参考文献条目命名一致
+- [x] 在 Web、CLI、Python、HTTP API 中复用同一套核心逻辑
 
 ## 安装
 
@@ -105,5 +105,5 @@ setup.py
 
 ## 致谢
 
-- 感谢 [DBLP](https://dblp.org) 提供论文元数据与书目信息生态。
-- 感谢持续建设开源科研工具链的贡献者。
+- 如果这个项目对你有帮助，欢迎点一个 Star。
+- 欢迎提交新功能相关的 Issue 或 Pull Request。
