@@ -9,63 +9,73 @@
 
 <p align="center"><b>Type a paper title. Get clean BibTeX. Keep your references organized.</b></p>
 
-## Quick Info
+Paper2Bib (`paper2bib`) is a Python package and CLI that searches DBLP from paper titles and returns clean BibTeX entries.
 
-- Project name: `Paper2Bib`
-- Package name (PyPI): `paper2bib`
-- CLI command: `paper2bib`
-- License: [MIT](./LICENSE)
-- Language: English (this file) | [简体中文 README](./README.zh-CN.md)
+Language: English (this file) | [简体中文 README](./README.zh-CN.md)
 
-## Why It Is Useful
+## What You Can Do
 
 - Search DBLP directly from paper titles
 - Generate BibTeX ready to copy or export
-- Batch mode for large reading lists
-- Consistent key naming across your references
-- Same engine for Web, CLI, Python, and API
+- Run batch conversion for large reading lists
+- Keep consistent key naming across your references
+- Use the same core engine from Web, CLI, Python, and HTTP API
 
-## Quick Start
-
-Install from PyPI:
+## Installation
 
 ```bash
 pip install paper2bib
 ```
 
-Run one query:
+## CLI Usage
+
+Single title:
 
 ```bash
 paper2bib "Attention Is All You Need"
 ```
 
-Run batch mode:
+Batch mode:
 
 ```bash
 paper2bib --file titles.txt --preference venueFirst --output refs.bib
 ```
 
-## Web Mode (Self-Hosted)
+## Web UI
 
-Start backend API:
+Open the static pages directly:
+
+<p align="center">
+  <a href="./docs/index.html"><img alt="Open Chinese Webpage" src="https://img.shields.io/badge/Open-Webpage%20%28ZH%29-2ea44f?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
+  <a href="./docs/en.html"><img alt="Open English Webpage" src="https://img.shields.io/badge/Open-Webpage%20%28EN%29-0366d6?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
+</p>
+
+<p align="center">
+  <img alt="Paper2Bib Web UI Chinese" src="./docs/assets/web-ch.png" width="47%" />
+  <img alt="Paper2Bib Web UI English" src="./docs/assets/web-en.png" width="47%" />
+</p>
+
+Self-hosted local run:
+
+1. Start backend API:
 
 ```bash
 uvicorn dblp_bib.api:app --reload
 ```
 
-Serve static frontend from repository root:
+2. Serve static frontend from repository root:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Open in browser:
+3. Open in browser:
 
 ```text
 http://localhost:8000/docs/
 ```
 
-## Python Library
+## Python Usage
 
 ```python
 from dblp_bib import search_bibtex, batch_search_bibtex

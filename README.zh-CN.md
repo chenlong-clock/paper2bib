@@ -9,29 +9,25 @@
 
 <p align="center"><b>输入论文标题，快速拿到干净 BibTeX，让参考文献整理更顺手。</b></p>
 
-## 快速信息
+Paper2Bib（`paper2bib`）是一个 Python 包和命令行工具，可通过论文标题搜索 DBLP 并返回干净的 BibTeX 条目。
 
-- 项目名：`Paper2Bib`
-- 包名（PyPI）：`paper2bib`（小写）
-- 命令名：`paper2bib`
-- 许可证：[MIT](./LICENSE)
-- 语言：[English README](./README.md) | 中文（本文件）
+语言：[English README](./README.md) | 中文（本文件）
 
-## 为什么好用
+## 你可以做什么
 
 - 直接用论文标题搜索 DBLP
 - 生成可复制、可导出的 BibTeX
-- 支持批量模式，适合长文献清单
-- 支持统一命名规则，便于个人库管理
-- Web / CLI / Python / API 共用同一套核心逻辑
+- 批量转换长文献清单
+- 保持参考文献条目命名一致
+- 在 Web、CLI、Python、HTTP API 中复用同一套核心逻辑
 
-## 快速开始
-
-从 PyPI 安装：
+## 安装
 
 ```bash
 pip install paper2bib
 ```
+
+## CLI 用法
 
 单篇查询：
 
@@ -45,27 +41,41 @@ paper2bib "Attention Is All You Need"
 paper2bib --file titles.txt --preference venueFirst --output refs.bib
 ```
 
-## 网页模式（自部署）
+## Web UI
 
-启动后端 API：
+可直接打开静态页面：
+
+<p align="center">
+  <a href="./docs/index.html"><img alt="打开中文网页" src="https://img.shields.io/badge/Open-Webpage%20%28ZH%29-2ea44f?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
+  <a href="./docs/en.html"><img alt="Open English Webpage" src="https://img.shields.io/badge/Open-Webpage%20%28EN%29-0366d6?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
+</p>
+
+<p align="center">
+  <img alt="Paper2Bib 中文网页截图" src="./docs/assets/web-ch.png" width="47%" />
+  <img alt="Paper2Bib 英文网页截图" src="./docs/assets/web-en.png" width="47%" />
+</p>
+
+本地自部署运行：
+
+1. 启动后端 API：
 
 ```bash
 uvicorn dblp_bib.api:app --reload
 ```
 
-在仓库根目录启动前端静态服务：
+2. 在仓库根目录启动前端静态服务：
 
 ```bash
 python3 -m http.server 8000
 ```
 
-浏览器访问：
+3. 浏览器访问：
 
 ```text
 http://localhost:8000/docs/
 ```
 
-## Python 库模式
+## Python 用法
 
 ```python
 from dblp_bib import search_bibtex, batch_search_bibtex
@@ -93,7 +103,7 @@ pyproject.toml
 setup.py
 ```
 
-## Acknowledgement
+## 致谢
 
 - 感谢 [DBLP](https://dblp.org) 提供论文元数据与书目信息生态。
-- 感谢所有持续建设开源科研工具链的贡献者。
+- 感谢持续建设开源科研工具链的贡献者。
