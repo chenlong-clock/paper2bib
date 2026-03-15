@@ -1,4 +1,4 @@
-<h1 align="center">🫧 PaperBib</h1>
+<h1 align="center">🫧 Paper2Bib</h1>
 
 <p align="center">
   <a href="./pyproject.toml"><img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue?style=flat-square" /></a>
@@ -11,7 +11,7 @@
 
 ## 快速信息
 
-- 项目名：`PaperBib`
+- 项目名：`Paper2Bib`
 - 包名（PyPI）：`paper2bib`（小写）
 - 命令名：`paper2bib`
 - 许可证：[MIT](./LICENSE)
