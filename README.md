@@ -1,4 +1,4 @@
-<h1 align="center">🫧 DBLP BibTeX Renamer</h1>
+<h1 align="center">🫧 PaperBib</h1>
 
 <p align="center">
   <a href="./pyproject.toml"><img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue?style=flat-square" /></a>
@@ -7,87 +7,65 @@
   <a href="./docs/index.html"><img alt="Web" src="https://img.shields.io/badge/web-self--hosted-orange?style=flat-square&logo=googlechrome&logoColor=white" /></a>
 </p>
 
-Turn paper titles into clean, reusable BibTeX entries.
+<p align="center"><b>Type a paper title. Get clean BibTeX. Keep your references organized.</b></p>
 
 ## Quick Info
 
-- 🪪 License: [MIT](./LICENSE)
-- 🏷️ Version: `0.1.0`
-- 🌐 Webpages: [中文页面](./docs/index.html) | [English page](./docs/en.html)
-- 🛠️ Deployment: self-hosted frontend + self-hosted FastAPI backend
+- Project name: `PaperBib`
+- Package name (PyPI): `paper2bib`
+- CLI command: `paper2bib`
+- License: [MIT](./LICENSE)
+- Language: English (this file) | [简体中文 README](./README.zh-CN.md)
 
-🌏 Language:
-- English (this file)
-- [简体中文 README](./README.zh-CN.md)
+## Why It Is Useful
 
-🌐 Web:
-- [中文页面](./docs/index.html)
-- [English page](./docs/en.html)
+- Search DBLP directly from paper titles
+- Generate BibTeX ready to copy or export
+- Batch mode for large reading lists
+- Consistent key naming across your references
+- Same engine for Web, CLI, Python, and API
 
-## What It Is
+## Quick Start
 
-This project provides one core capability in four forms:
-- Web UI
-- CLI
-- Python package
-- FastAPI service
-
-Use it when you want to search DBLP by paper title and quickly get renamed BibTeX keys for your workflow.
-
-## Project Layout
-
-```text
-docs/         Web frontend (self-hosted static files)
-dblp_bib/     Python package, CLI, FastAPI
-pyproject.toml
-setup.py
-```
-
-## Install
+Install from PyPI:
 
 ```bash
 pip install paper2bib
 ```
 
-For development:
-
-```bash
-python3 -m pip install -e .
-```
-
-## Web Mode
-
-Start API:
-
-```bash
-uvicorn dblp_bib.api:app --reload
-```
-
-Serve static files from repo root:
-
-```bash
-python3 -m http.server 8000
-```
-
-Open:
-
-```text
-http://localhost:8000/docs/
-```
-
-## CLI Mode
+Run one query:
 
 ```bash
 paper2bib "Attention Is All You Need"
 ```
 
-Batch mode:
+Run batch mode:
 
 ```bash
 paper2bib --file titles.txt --preference venueFirst --output refs.bib
 ```
 
-## Python Mode
+## Web Mode (Self-Hosted)
+
+Start backend API:
+
+```bash
+uvicorn dblp_bib.api:app --reload
+```
+
+Serve static frontend from repository root:
+
+```bash
+python3 -m http.server 8000
+```
+
+Open in browser:
+
+```text
+http://localhost:8000/docs/
+```
+
+## Python Library
 
 ```python
 from dblp_bib import search_bibtex, batch_search_bibtex
@@ -99,32 +77,23 @@ batch = batch_search_bibtex([
 ], preference="venueFirst")
 ```
 
-## API Mode
+## HTTP API
 
 ```bash
 uvicorn dblp_bib.api:app --reload
 curl http://127.0.0.1:8000/health
 ```
 
-## BibTeX Key Naming
-
-Default key style:
+## Project Layout
 
 ```text
-<author-last-name><year><first-keywords-of-title>
+docs/         Web frontend (self-hosted static files)
+dblp_bib/     Python package, CLI, FastAPI
+pyproject.toml
+setup.py
 ```
 
-Example:
+## Acknowledgement
 
-```text
-vaswani2017attentionAllNeed
-```
-
-## Publish to PyPI
-
-```bash
-python -m pip install --upgrade build twine
-python -m build
-python -m twine upload --repository testpypi dist/*
-python -m twine upload dist/*
-```
+- [DBLP](https://dblp.org) for the paper metadata and bibliographic ecosystem.
+- Contributors building open-source research tooling and citation workflows.
